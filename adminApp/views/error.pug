@@ -1,0 +1,8 @@
+extends layout
+
+block content
+  h1= message
+  h2= error.status
+  pre #{error.stack}
+  if error.status === 401
+    a.btn.btn-primary(href='/logout') Clear Session

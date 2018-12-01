@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  .w3-card-4
+    h1 Welcome #{user.nickname}
+    h2 Help User Do or Read Something
+    form(method='POST')
+      div.form-group
+        label(for='user') User:
+        select#user.form-control(placeholder='Choose a User' name='target_user_id')
+          each targetUser in users
+            option(value=targetUser.user_id, selected=(targetUser.user_id === lastUser)) #{targetUser.email}
+      button.btn.btn-primary(type='submit', name='something', value='read') Read Something
+      button.btn.btn-primary(type='submit', name='something', value='do') Do Something
+    h2 Results
+    p #{message}
