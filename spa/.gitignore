@@ -6,7 +6,7 @@ node_modules
 # testing
 coverage
 
-# production
+# build
 build
 
 # misc
@@ -14,3 +14,4 @@ build
 .env
 npm-debug.log
 auth0-variables.js
+config-variables.js

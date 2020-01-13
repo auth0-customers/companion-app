@@ -14,7 +14,7 @@ Customers will call the help desk with issues that they encounter in the applica
 ```bash
 cp api/env.sample api/.env
 # Replace with new Auth0 M2M client that has permission to read:users from the management API
-cp spa/src/Auth/auth0-variables.sample.js spa/src/Auth/auth0-variables.js
+cp spa/env.sample spa/.env
 # Replace with new Auth0 SPA client information that you created
 ```
 

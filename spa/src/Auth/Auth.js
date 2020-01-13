@@ -1,7 +1,6 @@
 import history from '../history';
-import _ from 'lodash';
 import auth0 from 'auth0-js';
-import { AUTH_CONFIG } from './auth0-variables';
+import { CONFIG } from '../config-variables';
 import axios from 'axios';
 
 /***
@@ -19,10 +18,10 @@ Copyright (C) 2018 Auth0, Inc. All Rights Reserved.
  */
 export default class Auth {
   auth0 = new auth0.WebAuth({
-    domain: AUTH_CONFIG.domain,
-    clientID: AUTH_CONFIG.clientId,
-    redirectUri: AUTH_CONFIG.callbackUrl,
-    audience: AUTH_CONFIG.audience,
+    domain: CONFIG.domain,
+    clientID: CONFIG.clientId,
+    redirectUri: CONFIG.callbackUrl,
+    audience: CONFIG.audience,
     responseType: 'token id_token',
     scope: 'openid profile'
   });
@@ -33,6 +32,7 @@ export default class Auth {
     this.handleAuthentication = this.handleAuthentication.bind(this);
     this.isAuthenticated = this.isAuthenticated.bind(this);
     this.getUser = this.getUser.bind(this);
+    this.setProfile = this.setProfile.bind(this);
 
     this.state = {};
   }
@@ -52,6 +52,16 @@ export default class Auth {
         alert(`Error: ${err.error}. Check the console for further details.`);
       }
     });
+  }
+
+  setProfile(profile, expires_at) {
+    this.state = {
+      profile: {
+        sub: profile.user_id,
+        ...profile
+      },
+      expires_at
+    };
   }
 
   setSession(authResult) {
@@ -81,7 +91,7 @@ export default class Auth {
 
     axios.defaults.headers.common.Authorization = 'N/A';
     // redirect to auth0 to log out
-    window.location = `http://${AUTH_CONFIG.domain}/v2/logout?returnTo=http://localhost:3000`;
+    window.location = `http://${CONFIG.domain}/v2/logout?returnTo=http://localhost:3000`;
   }
 
   isAuthenticated() {

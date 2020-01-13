@@ -4,6 +4,7 @@ import App from './App';
 import Home from './Home/Home';
 import Callback from './Callback/Callback';
 import Auth from './Auth/Auth';
+import NoLogin from './NoLogin/NoLogin';
 import Something from './Something/Something';
 import history from './history';
 
@@ -20,6 +21,7 @@ export const makeMainRoutes = () => {
       <Router history={history}>
         <div>
           <Route path="/" render={(props) => <App auth={auth} {...props} />} />
+          <Route path="/nologin" render={(props) => <NoLogin auth={auth} {...props} />} />
           <Route path="/home" render={(props) => <Home auth={auth} {...props} />} />
           <Route path="/something" render={(props) => <Something auth={auth} {...props} />} />
           <Route path="/callback" render={(props) => {

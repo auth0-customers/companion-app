@@ -14,7 +14,7 @@ const USER = 'user';
 dotenv.config();
 
 app.use(cors({
-  origin: 'http://localhost:3000'
+  origin: process.env.ALLOWED_ORIGINS
 }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -86,6 +86,16 @@ app.use(function(req, res, next) {
 app.get('/users', checkRole(ADMIN), managementClient, function(req, res) {
   req.auth0.users.getAll()
     .then(users => res.json(users))
+    .catch(err => res.send(err));
+});
+
+app.get('/userinfo', jwtCheck, managementClient, function(req, res) {
+  console.log('carlos, user: ', req.user);
+  req.auth0.users.get({ id: req.user.sub })
+    .then(user => res.json({
+      user,
+      expires_at: req.user.exp
+    }))
     .catch(err => res.send(err));
 });
 

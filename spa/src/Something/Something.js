@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Button } from 'react-bootstrap';
+import { CONFIG } from '../config-variables';
 
 class Something extends Component {
   constructor(props) {
@@ -10,13 +11,13 @@ class Something extends Component {
   }
 
   doSomething() {
-    axios.post('http://localhost:8080/something', { user_id: this.state.user }, { responseType: 'json' })
+    axios.post(`${CONFIG.baseApiUrl}/something`, { user_id: this.state.user }, { responseType: 'json' })
       .then((response) => this.setState({ message: 'Did Something', data: response.data }))
       .catch((err) => this.setState({ error: err.message }));
   }
 
   readSomething() {
-    axios.get('http://localhost:8080/something', { params: { user_id: this.state.user }, responseType: 'json' })
+    axios.get(`${CONFIG.baseApiUrl}/something`, { params: { user_id: this.state.user }, responseType: 'json' })
       .then((response) => this.setState({ message: 'Read Something', data: response.data }))
       .catch((err) => this.setState({ error: err.message }));
   }
