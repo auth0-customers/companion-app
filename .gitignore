@@ -4,3 +4,4 @@ node_modules
 .env
 auth0-variables.js
 config.json
+spa/.well-known/apple-app-site-association
