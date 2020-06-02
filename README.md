@@ -16,6 +16,8 @@ cp api/env.sample api/.env
 # Replace with new Auth0 M2M client that has permission to read:users from the management API
 cp spa/env.sample spa/.env
 # Replace with new Auth0 SPA client information that you created
+cp adminApp/env.sample adminApp/.env
+# Replace with new Regular Web Application client information that you created for the Help Desk Application
 ```
 
 ## Run
