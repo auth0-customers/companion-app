@@ -14,7 +14,8 @@ const USER = 'user';
 dotenv.config();
 
 app.use(cors({
-  origin: process.env.ALLOWED_ORIGINS
+  // If you want to test CORS uncomment the below line and set the ALLOWED_ORIGINS environment variable.
+  // origin: process.env.ALLOWED_ORIGINS
 }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -79,6 +80,10 @@ const checkSelfOrAdmin = function(req, res, next) {
 
 app.use(jwtCheck);
 app.use(function(req, res, next) {
+  if (["POST", "GET"].indexOf(req.method) < 0) {
+    next();
+    return;
+  }
   req.user.email = req.user['http://claims.com/email'];
   next();
 });
